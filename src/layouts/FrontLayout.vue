@@ -41,7 +41,7 @@ v-bottom-navigation(v-model='value' :bg-color='color' mode='shift' style='height
         span Logout
 
 //- 電腦版導覽列 
-v-navigation-drawer(expand-on-hover, rail, color="#F2E8DC" v-else mobile-breakpoint="sm")
+v-navigation-drawer(expand-on-hover, rail, color="#F2E8DC" v-if="user.isLogin")
   v-list
     v-list-item(:prepend-avatar, :title='user.name', to="/main", style="color: #403D3C", :active="false" v-if="user.isLogin")
     v-list-item(prepend-avatar='/favicon.ico', title='Cookie Project', to="/", style="color: #403D3C", :active="false" v-if="!user.isLogin")
@@ -75,8 +75,12 @@ import { useSnackbar } from 'vuetify-use-dialog'
 import { useRouter } from 'vue-router'
 
 const { xs } = useDisplay()
-// isMobile property = a reactive boolean that depends on the value of mobile.
+const { md } = useDisplay()
+const { sm } = useDisplay()
+
 const isMobile = computed(() => xs.value)
+const isMd = computed(() => md.value)
+const isSm = computed(() => sm.value)
 
 const { apiAuth } = useApi()
 const router = useRouter()
